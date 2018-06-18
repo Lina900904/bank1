@@ -1,5 +1,10 @@
 package service;
 
-public interface EmployeeService {
+import domain.SalaryBean;
 
+public interface EmployeeService {
+	public SalaryBean createSalary(String name, String sal);
+	public int basePay(int sal);
+	
+	
 }
