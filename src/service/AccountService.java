@@ -19,4 +19,6 @@ public interface AccountService   {
 	public void createMinusAccount(AccountBean account);
 	void addMinusList(MinusAccountBean account);
 	public MinusAccountBean[] mList();
+	public String changePass(AccountBean account);
+	public Object confirmPass(AccountBean account);
 }

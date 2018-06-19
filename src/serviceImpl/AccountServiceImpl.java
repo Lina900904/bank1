@@ -10,23 +10,31 @@ import service.AccountService;
 public class AccountServiceImpl implements AccountService {
 	int count;
 	AccountBean[] list;
-	
-public  AccountServiceImpl() {
-	count =0;
-	list=new AccountBean[100];
-}
+
+	public AccountServiceImpl() {
+		count = 0;
+		list = new AccountBean[100];
+	}
 
 	@Override
 	public void createAccount(AccountBean account) {
 		account.setAccountNo(createAccountNum(createRandom(0, 999)));
 		account.setAccountType(AccountBean.ACCOUNT_TYPE);
 		account.setCreateDate(createDate());
+
 		// account.setMoney(money); deposit 에서 처리
 		addList(account);
 	}
 
 	@Override
 	public AccountBean[] list() {
+		System.out.println("카운트" + count);
+		String res = "";
+		for (int i = 0; i < list.length; i++) {
+			res += list[i] + "\n";
+
+		}
+		System.out.println("배열내부" + res);
 		return list;
 
 	}
@@ -35,28 +43,28 @@ public  AccountServiceImpl() {
 	public void addList(AccountBean account) {
 		list[count++] = account;
 	}
+
 	@Override
 	public void createMinusAccount(AccountBean account) {
 		account.setAccountNo(createAccountNum(createRandom(0, 999)));
 		account.setAccountType(MinusAccountBean.ACCOUNT_TYPE);
 		account.setCreateDate(createDate());
-		
+
 		// account.setMoney(money); deposit 에서 처리
 		addList(account);
 	}
 
 	@Override
 	public void addMinusList(MinusAccountBean account) {
-		
-		list[count++] = account;
-		
 
 	}
+
 	@Override
 	public MinusAccountBean[] mList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public int deposit(String money) {
 		// TODO Auto-generated method stub
@@ -134,10 +142,52 @@ public  AccountServiceImpl() {
 		return arr;
 	}
 
+	@Override
+	public String changePass(AccountBean account) {
+		String msg = "";
+		String pass = account.getPass().split("/")[0];
+		String newPass = account.getPass().split("/")[1];
+		account.setPass(pass);
+		account = findById(account);
 
+		if (account.getUid() == null) {
+			msg = "ID존재무, 비번 틀림";
+		} else {
+			if (pass.equals(newPass)) {
+				msg = "변경실패";
+			} else {
+				account.setPass(newPass);
+				msg = "변경성공";
+			}
+		}
+		return msg;
+	}
 
+	@Override
+	public Object confirmPass(AccountBean account) {
 
-	
+		String accountDelete = "";
+		String pass = account.getPass().split("/")[0];
+		String confirmPass = account.getPass().split("/")[1];
+		int idx = 0;
+		for (int i = 0; i < count; i++) {
+			if (account.getUid().equals(list[i].getUid()) && account.getPass().equals(list[i].getPass())) {
+				idx = i;
+			}
+		}
 
-	
+		if (account.getUid() == null) {
+			accountDelete = "ID존재무, 비번 틀림";
+		} else if (pass.equals(confirmPass)) {
+			
+			accountDelete = "삭제성공";
+			list[idx]=list[--count];
+			list[count]=null;
+			
+			}else {
+				accountDelete = "삭제실패";
+			}
+		return accountDelete;
+
+	}
 }
