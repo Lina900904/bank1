@@ -3,191 +3,100 @@ package serviceImpl;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import domain.Account;
 import domain.AccountBean;
-import domain.MinusAccountBean;
+import domain.MemberBean;
+import domain.StaffBean;
+import domain.UserBean;
 import service.AccountService;
 
 public class AccountServiceImpl implements AccountService {
-	int count;
-	AccountBean[] list;
+	List<AccountBean> list;
 
 	public AccountServiceImpl() {
-		count = 0;
-		list = new AccountBean[100];
+
+		list = new ArrayList<AccountBean>();
 	}
 
 	@Override
 	public void createAccount(AccountBean account) {
-		account.setAccountNo(createAccountNum(createRandom(0, 999)));
-		account.setAccountType(AccountBean.ACCOUNT_TYPE);
+		account.setAccountNo(createAccountNum());
 		account.setCreateDate(createDate());
-
-		// account.setMoney(money); deposit 에서 처리
-		addList(account);
+		list.add(account);
 	}
 
 	@Override
-	public AccountBean[] list() {
-		System.out.println("카운트" + count);
-		String res = "";
-		for (int i = 0; i < list.length; i++) {
-			res += list[i] + "\n";
+	public void createMinusAccount(AccountBean minusAccount) {
+	}
 
-		}
-		System.out.println("배열내부" + res);
+	@Override
+	public List<AccountBean> list() {
+
 		return list;
-
-	}
-
-	@Override
-	public void addList(AccountBean account) {
-		list[count++] = account;
-	}
-
-	@Override
-	public void createMinusAccount(AccountBean account) {
-		account.setAccountNo(createAccountNum(createRandom(0, 999)));
-		account.setAccountType(MinusAccountBean.ACCOUNT_TYPE);
-		account.setCreateDate(createDate());
-
-		// account.setMoney(money); deposit 에서 처리
-		addList(account);
-	}
-
-	@Override
-	public void addMinusList(MinusAccountBean account) {
-
-	}
-
-	@Override
-	public MinusAccountBean[] mList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int deposit(String money) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int withdarw(String money) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String createAccountNum(String Random) {
-		String accountNum = "";
-		for (int i = 0; i < 3; i++) {
-			accountNum += (i != 2) ? String.format("%03d", Integer.parseInt(createRandom(1, 999))) + "-"
-					: String.format("%03d", Integer.parseInt(createRandom(1, 999))) + "";
-		}
-		return accountNum;
-
-	}
-
-	@Override
-	public String createRandom(int start, int end) {
-		return String.valueOf((int) (Math.random() * (end + 1)) + start);
-	}
-
-	@Override
-	public String createDate() {
-		return new SimpleDateFormat("yyyy년 MM월 dd일").format(new Date());
 	}
 
 	@Override
 	public AccountBean findById(AccountBean account) {
-		AccountBean acc = new AccountBean();
-		// 배열 list를 looping하면서
-		// 아이디가 일치하고 비번이 일치한
-		// 그 객체를 리턴한다
-		// 일단 일치하는 값이 없는 상황은 나중에 처리
-		for (int i = 0; i < count; i++) {
-			if (account.getUid().equals(list[i].getUid()) && account.getPass().equals(list[i].getPass())) {
-				acc = list[i];
+		AccountBean id = new AccountBean();
+		for (int i = 0; i < list.size(); i++) {
+			if (account.getName().equals(list.get(i).getName())) {
+				id = list.get(i);
 				break;
+
 			}
+
 		}
-		return acc;
+		return id;
 	}
 
 	@Override
-	public int countSameWord(String word) {
-		int temp = 0;
-		for (int i = 0; i < count; i++) {
-			if (word.equals(list[i].getName())) {
-				temp++;
-			} // 배열 개수를 만들 부분
+	public List<AccountBean> seachName(String name) {
+		List<AccountBean> temp = new ArrayList<AccountBean>();
+		for (int i = 0; i < list.size(); i++) {
+			if (name.equals(list.get(i).getUid())) {
+				temp.add(list.get(i));
+			}
 		}
 		return temp;
 	}
 
 	@Override
-	public AccountBean[] findByName(String name) {
-		int temp = countSameWord(name);
-		AccountBean[] arr = new AccountBean[temp];
-		int cn = 0;
-		for (int i = 0; i < count; i++) { // 이름을 검색할 부분
-			if (name.equals(list[i].getName())) {
-				arr[cn] = list[i];
-				cn++;
-				if (cn == temp) { // if문을 나갈부분
-					break;
-				}
-			}
-		}
-		return arr;
+	public void chagePass(AccountBean account) {
+		list.get(list.indexOf(findById(account))).setPass(account.getPass());
 	}
 
 	@Override
-	public String changePass(AccountBean account) {
-		String msg = "";
-		String pass = account.getPass().split("/")[0];
-		String newPass = account.getPass().split("/")[1];
-		account.setPass(pass);
-		account = findById(account);
-
-		if (account.getUid() == null) {
-			msg = "ID존재무, 비번 틀림";
-		} else {
-			if (pass.equals(newPass)) {
-				msg = "변경실패";
-			} else {
-				account.setPass(newPass);
-				msg = "변경성공";
-			}
-		}
-		return msg;
+	public void deleteAccount(AccountBean account) {
+		list.remove(findById(account));
 	}
 
 	@Override
-	public Object confirmPass(AccountBean account) {
-
-		String accountDelete = "";
-		String pass = account.getPass().split("/")[0];
-		String confirmPass = account.getPass().split("/")[1];
-		int idx = 0;
-		for (int i = 0; i < count; i++) {
-			if (account.getUid().equals(list[i].getUid()) && account.getPass().equals(list[i].getPass())) {
-				idx = i;
-			}
-		}
-
-		if (account.getUid() == null) {
-			accountDelete = "ID존재무, 비번 틀림";
-		} else if (pass.equals(confirmPass)) {
-			
-			accountDelete = "삭제성공";
-			list[idx]=list[--count];
-			list[count]=null;
-			
-			}else {
-				accountDelete = "삭제실패";
-			}
-		return accountDelete;
-
+	public String random(int start, int end) {
+		String random ="";
+		random = String.format("%03d", (int)(Math.random()*end )+start);
+				return random;
 	}
+	
+	
+
+	@Override
+	public String createAccountNum() {
+	
+		
+		String accountNum="";
+		for(int i =0; i<3;i++) {
+			accountNum+=(i==2)?random(0,999):random(0,999)+"-";
+		}
+		
+		return accountNum;
+	}
+
+	@Override
+	public String createDate() {
+	
+		return new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
+	}
+
+
+
 }

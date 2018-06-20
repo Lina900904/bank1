@@ -1,22 +1,18 @@
 package service;
 
+import java.util.List;
+
 import domain.*;
 
-
 public interface MemberService {
-	 public void crateJoin(MemberBean user) ;
-	 public MemberBean[] list();
-	 public void crateStaffJoin(MemberBean staff);
-	 public void addList(MemberBean member);
-	public MemberBean findById(MemberBean member);
-	public MemberBean[] findByName(String name);
-	public int countWord(String name);
-	 public String count();
-	public  Object update(MemberBean member);
-	
-	 
-	 
+	public void createUser(UserBean user);
+	public void createStaff(StaffBean staff);
+	public List<MemberBean> list();
+	public List<MemberBean> serch(String param);
+	public MemberBean serch(MemberBean param);
+	public void updat(MemberBean member);
+	public void deldte(MemberBean member);
 	
 	
-	
+
 }
