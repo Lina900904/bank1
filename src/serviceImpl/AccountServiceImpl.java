@@ -1,3 +1,4 @@
+
 package serviceImpl;
 
 import java.text.SimpleDateFormat;
@@ -52,9 +53,9 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public List<AccountBean> seachName(String name) {
 		List<AccountBean> temp = new ArrayList<AccountBean>();
-		for (int i = 0; i < list.size(); i++) {
-			if (name.equals(list.get(i).getUid())) {
-				temp.add(list.get(i));
+		for (AccountBean e: list) {
+			if (name.equals(e.getName())) {
+				temp.add(e);
 			}
 		}
 		return temp;
@@ -62,6 +63,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public void chagePass(AccountBean account) {
+		
 		list.get(list.indexOf(findById(account))).setPass(account.getPass());
 	}
 
@@ -96,7 +98,5 @@ public class AccountServiceImpl implements AccountService {
 	
 		return new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ;
 	}
-
-
 
 }
