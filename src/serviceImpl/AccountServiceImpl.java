@@ -24,10 +24,15 @@ public class AccountServiceImpl implements AccountService{
 	
 	@Override
 	public void createAccount(AccountBean account) {
-		account.setCreateDate("4321");
-		account.setAccountType("기본통장");
-		account.setAccountNo("1234");
-		list.add(account);
+		account.setAccountType(AccountBean.ACCOUNT_TYPE);
+		account.setCreateDate(AdminServiceImpl.getInstance().createDate());
+		account.setAccountNo(AdminServiceImpl.getInstance().createAccountNo());
+		System.out.println("====멤버 서비스===");
+		System.out.println("컨트롤에서 넘어온객체"
+				+account);
+		
+		
+	
 	}
 	@Override
 	public void createMinus(MinusAccountBean minusAccount) {

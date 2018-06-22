@@ -27,7 +27,7 @@ public class OpenAccount extends JFrame{
 	JPanel bottomPan, centerPan, idPan, passPan, 
 		namePan, phonePan, addrPan, ssnPan, emailPan;
 	JComboBox<?> combo;
-	String[] menu = {"사용자 등록","직원 추가"};
+	String[] menu = {"일반통장 생성","마이너스통장 생성"};
 	public OpenAccount() {
 		makeGui(); //화면구성
 		this.setSize(400, 300);
@@ -35,7 +35,7 @@ public class OpenAccount extends JFrame{
 	}
 	// uid,pass,name,ssn,phone,email,addr;
 	public void makeGui() {
-		topLab = new JLabel("통장개설", JLabel.CENTER);
+		topLab = new JLabel("통장생성", JLabel.CENTER);
 		
 		combo = new JComboBox<>(menu);
 		idLab = new JLabel("I D : ", JLabel.CENTER);
@@ -72,14 +72,14 @@ public class OpenAccount extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AccountBean acb= new AccountBean();
-				acb.setName(nameTxt.getText());
-				acb.setUid(idTxt.getText());
-				acb.setPass(passTxt.getText());
+				AccountBean account= new AccountBean();
+				account.setName(nameTxt.getText());
+				account.setUid(idTxt.getText());
+				account.setPass(passTxt.getText());
 				
 				if(((String) combo.getSelectedItem()).equals(menu[0])) {
-				 MemberController.getInstance().join(acb);
-					
+				 AccountController.getInstance().account(account);
+				
 				}else {
 				//	new AdminServiceImpl().join(member);
 					;

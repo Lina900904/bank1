@@ -11,13 +11,10 @@ public class AccountController {
 	public static AccountController getInstance() {return intance;}
 	private AccountController() {}
 
-	public void account() {
-		AccountBean acb = null;
-		acb = new AccountBean();
-		acb.setName(JOptionPane.showInputDialog("name"));
-		acb.setUid(JOptionPane.showInputDialog("id"));
-		acb.setPass(JOptionPane.showInputDialog("pass"));
-		//servic.createAccount(acb);
+	public void account(AccountBean account) {
+		System.out.println("====멤버 컨트롤러");
+		System.out.println("화면에서 넘어온객체" + account);
+		AccountServiceImpl.getInstance().createAccount(account);
 	}
 	public void minusAccount() {
 		AccountBean acb = null;

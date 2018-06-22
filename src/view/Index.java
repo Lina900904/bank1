@@ -16,6 +16,7 @@ public class Index extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("관리자화면");
 		this.setLayout(new GridLayout(3, 3,10,10));
+		
 		JButton btn1 = new JButton("회원가입");
 		btn1.addActionListener(new ActionListener() {
 			
@@ -26,11 +27,11 @@ public class Index extends JFrame{
 		});
 		this.add(btn1);
 		JButton btn2 = new JButton("통장생성");
-		btn1.addActionListener(new ActionListener() {
+		btn2.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				new OpenAccount();
 			}
 		});
 		this.add(btn2);
