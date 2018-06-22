@@ -1,72 +1,107 @@
 package view;
 
-import javax.swing.JOptionPane;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import controller.*;
-import domain.MemberBean;
-import domain.UserBean;
-import service.MemberService1;
-import serviceImpl.MemberServiceImpl1;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
-enum MemberButt {
-	EXIT, JOIN, ADD, // 일반유저 추가, ADD는 직원추가
-	LIST, FIND_BY_ID, FIND_BY_NAME, COUNT, UPDATE, WITHDRAWAL
-}
-
-public class Index {
-
-	public static void main(String[] args) {
-		MemberService1 service = new MemberServiceImpl1();
-		MemberBean member = null;
-		while (true) {
-			switch ((MemberButt) JOptionPane.showInputDialog(null, "무슨업무를 하시겠습니까?", "SELECT MENU",
-					JOptionPane.QUESTION_MESSAGE, null,
-					new MemberButt[] { MemberButt.EXIT, MemberButt.JOIN, MemberButt.ADD, MemberButt.LIST,
-							MemberButt.FIND_BY_ID, MemberButt.FIND_BY_NAME, MemberButt.COUNT, MemberButt.UPDATE,
-							MemberButt.WITHDRAWAL },
-
-					null)) {
-			case EXIT:
-				return;
-			case JOIN: //일반
-				member = new UserBean();
-
-				member.setName(JOptionPane.showInputDialog("이름"));
-				member.setUid(JOptionPane.showInputDialog("USER ID"));
-				member.setPass(JOptionPane.showInputDialog("비밀번호"));
-				member.setSsn(JOptionPane.showInputDialog("주민번호"));
-				member.setAddr(JOptionPane.showInputDialog("주소"));
-				member.setPhone(JOptionPane.showInputDialog("핸드폰번호"));
-				member.setEmail(JOptionPane.showInputDialog("E-MAIL"));
-				service.createUser( (UserBean) member);
-				break;
-			case ADD: //직원 s 아이디 비번 직원번호/
-				break;
-			case LIST:
-				break;
+public class Index extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Index(){
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("관리자화면");
+		this.setLayout(new GridLayout(3, 3,10,10));
+		JButton btn1 = new JButton("회원가입");
+		btn1.addActionListener(new ActionListener() {
 			
-			case FIND_BY_ID:
-				
-				
-				break;
-			case FIND_BY_NAME:
-				
-				
-				break;
-			case COUNT:
-				
-				break;
-			case UPDATE: // 아이디 비번받아서 비번만 변경
-								
-				break;
-			case WITHDRAWAL: // 회원 탈퇴
-			
-				break;
-			default:
-				return;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Register();
 			}
-
-		}
+		});
+		this.add(btn1);
+		JButton btn2 = new JButton("통장생성");
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		this.add(btn2);
+		JButton btn3 = new JButton("목록보기");
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		this.add(btn3);
+		JButton btn4 = new JButton("ID 검색");
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		this.add(btn4);
+		JButton btn5 = new JButton("이름 검색");
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		this.add(btn5);
+		JButton btn6 = new JButton("비번 변경");
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		this.add(btn6);
+		JButton btn7 = new JButton("입금");
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		this.add(btn7);
+		JButton btn8 = new JButton("출금");
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		this.add(btn8);
+		JButton btn9 = new JButton("회원 탈퇴");
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		this.add(btn9);
+		setSize(600, 600);
+		setLocation(100, 100);
+		setVisible(true);
 	}
-
+	public static void main(String[] args) {
+		new Index();
+	}
 }

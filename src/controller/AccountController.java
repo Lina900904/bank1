@@ -6,56 +6,58 @@ import domain.*;
 import service.*;
 import serviceImpl.*;
 
-
-
 public class AccountController {
+	private static AccountController intance = new AccountController();
+	public static AccountController getInstance() {return intance;}
+	private AccountController() {}
+
 	public void account() {
-		AccountService2 service = new AccountServiceImpl2();
-		AccountBean account = null;
-		account= new AccountBean();
-		account.setName(JOptionPane.showInputDialog("NAME"));
-		account.setUid(JOptionPane.showInputDialog("USER ID"));
-		account.setPass(JOptionPane.showInputDialog("PASS"));
-		 service.createAccount(account);
+		AccountBean acb = null;
+		acb = new AccountBean();
+		acb.setName(JOptionPane.showInputDialog("name"));
+		acb.setUid(JOptionPane.showInputDialog("id"));
+		acb.setPass(JOptionPane.showInputDialog("pass"));
+		//servic.createAccount(acb);
 	}
-	
+	public void minusAccount() {
+		AccountBean acb = null;
+		acb = new MinusAccountBean();
+		acb.setName(JOptionPane.showInputDialog("name"));
+		acb.setUid(JOptionPane.showInputDialog("id"));
+		acb.setPass(JOptionPane.showInputDialog("pass"));
+		((MinusAccountBean) acb).setLimit(JOptionPane.showInputDialog("limit"));
+	//	service.createMinus((MinusAccountBean) acb);
+	}
 	public void list() {
-		AccountService2 service = new AccountServiceImpl2();
-		AccountBean account = null;
-		JOptionPane.showMessageDialog(null,service.map());
+		AccountBean acb = null;
+		//service.list();
 	}
-	
 	public void findById() {
-		AccountService2 service = new AccountServiceImpl2();
-		AccountBean account = null;
-		account= new AccountBean();
-		account.setName(JOptionPane.showInputDialog("NAME"));
-		account.setPass(JOptionPane.showInputDialog("PASS"));
-		JOptionPane.showMessageDialog(null,service.findById(account));
+		AccountBean acb = null;
+		acb = new AccountBean();
+		acb.setUid(JOptionPane.showInputDialog("id"));
+		acb.setPass(JOptionPane.showInputDialog("pass"));
+		//JOptionPane.showMessageDialog(null, service.findById(acb));
 	}
 	public void findByName() {
-		AccountService2 service = new AccountServiceImpl2();
-		AccountBean account = null;
-		JOptionPane.showMessageDialog(null, service.findByName(JOptionPane.showInputDialog("NAME")));
+		AccountBean acb = null;
+		//JOptionPane.showMessageDialog(null, service.findByName(JOptionPane.showInputDialog("이름")));
 	}
-	public void changPass() {
-		AccountService2 service = new AccountServiceImpl2();
-		AccountBean account = null;
-		account= new AccountBean();
-		account.setUid(JOptionPane.showInputDialog("USER ID"));
-		account.setPass(JOptionPane.showInputDialog("PASS")+"/"+JOptionPane.showInputDialog("NEWPASS"));
-		
-		service.chagePass(account);
+	public void minusList() {
+		AccountBean acb = null;
 	}
-	public void accountDelet() {
-		AccountService2 service = new AccountServiceImpl2();
-		AccountBean account = null;
-		account= new AccountBean();
-		account.setUid(JOptionPane.showInputDialog("USER ID"));
-		account.setPass(JOptionPane.showInputDialog("PASS"));
-		service.deleteAccount(account);
+	public void changePass() {
+		AccountBean acb = null;
+		acb = new AccountBean();
+		acb.setUid(JOptionPane.showInputDialog("id"));
+		acb.setPass(JOptionPane.showInputDialog("pass") + "/" + JOptionPane.showInputDialog("newPass"));
+	//	service.updatePass(acb);
+	}
+	public void deleteAccount() {
+		AccountBean acb = null;
+		acb = new AccountBean();
+		acb.setUid(JOptionPane.showInputDialog("id"));
+		acb.setPass(JOptionPane.showInputDialog("pass"));
+		//service.deleteAccount(acb);
 	}
 }
-
-	
-	

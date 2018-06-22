@@ -1,8 +1,15 @@
 package domain;
 
 public class MemberBean {
-	
 	protected String uid,pass,name,ssn,addr,phone,email;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getUid() {
 		return uid;
@@ -48,23 +55,17 @@ public class MemberBean {
 		return phone;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
 	@Override
 	public String toString() {
-		return "회원정보 [아이디:" + uid + ", 비밀번호:" + pass + ", 이름:" + name + ", 주민번호:" + ssn + ", 주소:" + addr
-				+ ", 전화번호:" + phone + "+이메일:" + email + "]\n";
+		return "회원정보 [아이디:" + uid 
+				+ ", 비번:" + pass + ", 이름:" + name 
+				+ ", 주민:" + ssn + ", 주소:" + addr +", 이메일:" + email
+				+ ", 폰:" + phone + "]\n";
 	}
-
-
+	
+	
 }
